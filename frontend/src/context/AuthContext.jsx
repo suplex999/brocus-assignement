@@ -10,23 +10,23 @@ export function AuthProvider({ children }) {
 
   const login = useCallback(async (email, password) => {
     const { data } = await api.post('/auth/login', { email, password })
-    cookie.setItem('token', data.token)
-    cookie.setItem('user', JSON.stringify(data.user))
+    localStorage.setItem('token', data.token)
+    localStorage.setItem('user', JSON.stringify(data.user))
     setUser(data.user)
     return data
   }, [])
 
   const signup = useCallback(async (name, email, password) => {
     const { data } = await api.post('/auth/signup', { name, email, password })
-    cookie.setItem('token', data.token)
-    cookie.setItem('user', JSON.stringify(data.user))
+    localStorage.setItem('token', data.token)
+    localStorage.setItem('user', JSON.stringify(data.user))
     setUser(data.user)
     return data
   }, [])
 
   const logout = useCallback(() => {
-    cookie.removeItem('token')
-    cookie.removeItem('user')
+    localStorage.removeItem('token')
+    localStorage.removeItem('user')
     setUser(null)
   }, [])
 
